@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digit Recognition</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css')}}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Draw a Digit</h1>
+        <canvas id="drawingCanvas" width="400" height="400"></canvas>
+        <button id="clearButton">Clear</button>
+        <button id="saveButton">Save</button>
+        <a href="{{url_for('index')}}">Back to Home</a>
+    </div>
+    <script src="{{ url_for('static', filename='js/digit_recognition.js')}}"></script>
+</body>
+
+</html>
