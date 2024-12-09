@@ -15,6 +15,11 @@
         <button id="clearButton">Clear</button>
         <button id="saveButton">Save</button>
         <a href="{{url_for('index')}}">Back to Home</a>
+
+        <div id="result">
+            <h2>Predicted Digits:</h2>
+            <ul id="predictions"></ul>
+        </div>
     </div>
     <script src="{{ url_for('static', filename='js/digit_recognition.js')}}"></script>
 </body>

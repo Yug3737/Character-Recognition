@@ -25,7 +25,7 @@ canvas.addEventListener('mousemove', (e) => {
     if (drawing) {
         ctx.lineTo(e.offsetX, e.offsetY);
         ctx.strokeStyle = 'black';
-        ctx.lineWidth = 5;
+        ctx.lineWidth = 30;
         ctx.lineCap = 'round';
         ctx.stroke();
     }
@@ -43,21 +43,31 @@ clearButton.addEventListener('click', () => {
 });
 
 saveButton.addEventListener('click', () => {
-    const imageData = canvas.toDataURL('image/png');
+    let canvas = document.getElementById("drawingCanvas");
+    let imageData = canvas.toDataURL('image/png');
     fetch('/save_letter_image', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({ image: imageData }),
-    }).then(res => {
-        if (res.ok) {
-            alert('Letter Image saved successfully.');
-        } else {
-            alert('Failed to Save Digit Image.');
-        }
     })
+        .then(res => res.json())
+        .then(data => {
+            // display top 3 predictions
+            const predictions = data.predictions;
+            const predictionsList = document.getElementById("predictions");
+
+            // clear prev results
+            predictionsList.innerHTML = "";
+
+            predictions.forEach(prediction => {
+                const listItem = document.createElement("li");
+                listItem.textContent = `Letter: ${prediction.predicted_letter}, Probability: ${prediction.probability}`;
+                predictionsList.appendChild(listItem);
+            });
+        })
         .catch(err => {
-            alert('Error:' + err.message)
-        });
+            console.log("Error: ", err);
+        })
 });
