@@ -136,7 +136,6 @@ class NeuralNetwork:
                 }
             )
         print(result)
-        print(type(result))
         return result
 
 
